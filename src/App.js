@@ -1,13 +1,15 @@
 import { useEffect, useState } from 'react'
+import styled from 'styled-components'
 
 export const App = () => {
 
   const [characters, setCharacters] = useState([])
+  const [pageNumber, setPageNumber] =  useState(1)
 
   const ENDPOINT = 'https://rickandmortyapi.com/graphql'
   const QUERY = `
     query {
-      characters(page: 1) {
+      characters(page: ${pageNumber}) {
         results {
           id
           name
@@ -24,6 +26,19 @@ export const App = () => {
       }
     } 
   `
+
+  const App = styled.div`
+    text-align: center;
+    padding: 20px;
+  `
+  const Cards = styled.div`
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-gap: 20px;
+  `
+  const Card = styled.div`
+    margin: 10px;
+  `
   
   useEffect(() => {
     fetch(ENDPOINT, {
@@ -39,20 +54,26 @@ export const App = () => {
   },[QUERY])
 
   return (
-    <div className="App">
+    <App>
       <h1>Rick And Morty Wiki</h1>
-      
-      {characters.map(character => (
+    
+      <Cards>
+        {characters.map(character => (
+          <Card key={character.id}>
+ 
+            <img src={character.image}/>
+            <div>
+              <h2>{character.name}</h2>
+              <span>{character.status}</span>
+              <span>{character.species}</span>
+            </div>
+          </Card>
+        ))}
+      </Cards>
 
-        <div key={character.id}>
-          <h2>{character.name}</h2>
-          <img src={character.image}/>
-          <div>
-            <span>{character.status}</span>
-            <span>{character.species}</span>
-          </div>
-        </div>
-      ))}
-    </div>
+      <button>prev</button>
+      <span>{pageNumber}</span>
+      <button>next</button>
+    </App>
   )
 }
