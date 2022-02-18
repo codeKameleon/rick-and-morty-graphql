@@ -39,7 +39,24 @@ export const App = () => {
   const Card = styled.div`
     margin: 10px;
   `
-  
+  const Pagination = styled.div`
+    span {
+      padding: 0 10px;
+    }
+  `
+
+  const goPreviousPage = () => {
+    if(pageNumber === 1) {
+      return;
+    }
+
+    setPageNumber(pageNumber - 1)
+  }
+
+  const goNextPage = () => {
+    setPageNumber(pageNumber + 1)
+  }
+
   useEffect(() => {
     fetch(ENDPOINT, {
       method: "POST", 
@@ -71,9 +88,11 @@ export const App = () => {
         ))}
       </Cards>
 
-      <button>prev</button>
-      <span>{pageNumber}</span>
-      <button>next</button>
+      <Pagination>
+        <button onClick={goPreviousPage}>prev</button>
+        <span>{pageNumber}</span>
+        <button onClick={goNextPage}>next</button>
+      </Pagination>
     </App>
   )
 }
