@@ -1,7 +1,8 @@
 export const App = () => {
+
   return (
     <div className="App">
-      <h1>Rick And Morty</h1>
+      <h1>Rick And Morty Wiki</h1>
     </div>
   );
 }

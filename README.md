@@ -1,5 +1,5 @@
 # Rick & Morty GraphQL
-I made this project to get familar with GraphQL. It gathers data from Rick & Morty GraphQL and allow the user to search a character of the serie with an autocomplete feature.
+I made this project to get familar with GraphQL. It gathers data from Rick & Morty API and allow the user to search a character of the serie with an autocomplete feature.
 
 ## Usage
 `npm start`
