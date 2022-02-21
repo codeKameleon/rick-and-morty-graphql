@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 
 export const App = () => {
-
   const [characters, setCharacters] = useState([])
   const [pageNumber, setPageNumber] =  useState(1)
 
@@ -27,6 +26,7 @@ export const App = () => {
     } 
   `
 
+  // Styled components
   const App = styled.div`
     text-align: center;
     padding: 20px;
@@ -37,7 +37,30 @@ export const App = () => {
     grid-gap: 20px;
   `
   const Card = styled.div`
-    margin: 10px;
+    margin: 10px; 
+  `
+  const StatusIcon = styled.span`
+    display: inline-block;
+    vertical-align: middle;
+    width: 10px;
+    height: 10px;
+    margin-right: 5px;
+    border-radius: 100%
+  }
+
+  &.unknown {
+    background-color: grey;
+  }
+
+  &.alive {
+    background-color: green;
+  }
+
+  &.dead {
+    background-color: red;
+  }
+  `
+  const StatusName = styled.span`
   `
   const Pagination = styled.div`
     span {
@@ -45,6 +68,7 @@ export const App = () => {
     }
   `
 
+  // Functions 
   const goPreviousPage = () => {
     if(pageNumber === 1) {
       return;
@@ -57,6 +81,7 @@ export const App = () => {
     setPageNumber(pageNumber + 1)
   }
 
+  // Lifecycle
   useEffect(() => {
     fetch(ENDPOINT, {
       method: "POST", 
@@ -77,11 +102,13 @@ export const App = () => {
       <Cards>
         {characters.map(character => (
           <Card key={character.id}>
- 
             <img src={character.image}/>
             <div>
               <h2>{character.name}</h2>
-              <span>{character.status}</span>
+              <div className='status'>
+                <StatusIcon className={character.status.toLowerCase()}></StatusIcon>
+                <StatusName>{character.status}</StatusName>
+              </div>
               <span>{character.species}</span>
             </div>
           </Card>
